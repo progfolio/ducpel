@@ -1,4 +1,4 @@
-;;; ducpel-glyphs.el --- Default ducpel glyphs
+;;; ducpel-glyphs.el --- Default ducpel glyphs  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014 Alex Kost
 

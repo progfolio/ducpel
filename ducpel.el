@@ -1,4 +1,4 @@
-;;; ducpel.el --- Logic game with sokoban elements
+;;; ducpel.el --- Logic game with sokoban elements  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014 Alex Kost
 
