@@ -837,9 +837,10 @@ For the meaning of arguments, see `ducpel-undo-list'."
   (and teleports
        (setq ducpel-teleports teleports)))
 
-(defun ducpel-undo ()
-  "Undo previous move or action."
-  (interactive)
+(defun ducpel-undo (&optional n)
+  "Undo last N moves or actions."
+  (interactive "p")
+  (dotimes (_ n)
   ;; Undo possible switching of the men made since the last move
   (ducpel-undo-changes ducpel-undo-current-cells
                        ducpel-undo-current-men
@@ -853,7 +854,7 @@ For the meaning of arguments, see `ducpel-undo-list'."
       (ducpel-remove-move)
       (pop ducpel-moves-history)
       (ducpel-check-done)
-      (ducpel-print-done))))
+      (ducpel-print-done)))))
 
 
 ;;; Replaying
