@@ -37,7 +37,7 @@
   (make-string (length ducpel-glyphs-floor-chars) ?●))
 
 (defun ducpel-glyphs-get-char-by-plist (&rest plist)
-  "Return a character by cell plist.
+  "Return a character by cell PLIST.
 Characters are used in a ducpel gamegrid if `ducpel-use-glyphs' is nil."
   (let ((type (plist-get plist :type)))
     (cond

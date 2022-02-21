@@ -5,7 +5,7 @@
 ;; Author: Alex Kost <alezost@gmail.com>
 ;; Created: 31 Mar 2014
 ;; Version: 0.1
-;; Package-Requires: ((cl-lib "0.5"))
+;; Package-Requires: ((emacs "25.1"))
 ;; URL: https://github.com/alezost/ducpel
 ;; Keywords: games
 
@@ -30,7 +30,7 @@
 ;; - "ducpel-glyphs.el" (it generates default images);
 ;; - directory with levels.
 ;;
-;; Add the following to your emacs init file:
+;; Add the following to your Emacs init file:
 ;;
 ;;   (add-to-list 'load-path "/path/to/ducpel-dir")
 ;;   (autoload 'ducpel "ducpel" nil t)
@@ -483,7 +483,7 @@ Returning value is a list of the form (X Y)."
 (defun ducpel-do (move-type)
   "Try to make a move or perform an action with active man.
 Save undo history if the move/action was successful.
-MOVE-TYPE is one of the following constants: `ducpel-action',
+MOVE-TYPE is one of the following symbols: `ducpel-action',
 `ducpel-left-move', `ducpel-right-move', `ducpel-up-move',
 `ducpel-down-move'."
   (unless (ducpel-done-p t)
@@ -626,12 +626,12 @@ If SHOW-MESSAGE is non-nil, also show a message in minibuffer."
     done))
 
 (defun ducpel-add-move ()
-  "Increase the current count of moves."
+  "Increase the current move count."
   (cl-incf ducpel-moves)
   (ducpel-print-moves))
 
 (defun ducpel-remove-move ()
-  "Decrease the current count of moves."
+  "Decrease the current move count."
   (cl-decf ducpel-moves)
   (ducpel-print-moves))
 
@@ -823,7 +823,7 @@ return non-nil."
   (ducpel-undo-reset-current))
 
 (defun ducpel-undo-changes (cells men active teleports)
-  "Undo changes from CELLS, MEN, ACTIVE and TELEPORTS.
+  "Undo CELLS, MEN, ACTIVE and TELEPORTS actions.
 For the meaning of arguments, see `ducpel-undo-list'."
   (mapc (lambda (change)
           (apply 'gamegrid-set-cell change))
@@ -1225,30 +1225,30 @@ signal an error."
 
 (defvar ducpel-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map "R"            'ducpel-restart-level)
-    (define-key map "F"            'ducpel-load-level-from-file)
-    (define-key map "L"            'ducpel-goto-level)
-    (define-key map "N"            'ducpel-next-level)
-    (define-key map "P"            'ducpel-previous-level)
-    (define-key map "u"            'ducpel-undo)
-    (define-key map "\C-_"         'ducpel-undo)
-    (define-key map [(control ?/)] 'ducpel-undo)
-    (define-key map "\t"           'ducpel-next-man)
-    (define-key map "\e\t"         'ducpel-previous-man)
-    (define-key map [backtab]      'ducpel-previous-man)
-    (define-key map " "            'ducpel-action)
-    (define-key map "b"            'ducpel-move-left)
-    (define-key map "f"            'ducpel-move-right)
-    (define-key map "p"            'ducpel-move-up)
-    (define-key map "n"            'ducpel-move-down)
-    (define-key map [left]         'ducpel-move-left)
-    (define-key map [right]        'ducpel-move-right)
-    (define-key map [up]           'ducpel-move-up)
-    (define-key map [down]         'ducpel-move-down)
-    (define-key map "rc"           'ducpel-replay-current)
-    (define-key map "rf"           'ducpel-replay-from-file)
-    (define-key map "rS"           'ducpel-replay-solution)
-    (define-key map "rs"           'ducpel-save-replay)
+    (define-key map (kbd "R")             'ducpel-restart-level)
+    (define-key map (kbd "F")             'ducpel-load-level-from-file)
+    (define-key map (kbd "L")             'ducpel-goto-level)
+    (define-key map (kbd "N")             'ducpel-next-level)
+    (define-key map (kbd "P")             'ducpel-previous-level)
+    (define-key map (kbd "u")             'ducpel-undo)
+    (define-key map (kbd "\C-_")          'ducpel-undo)
+    (define-key map (kbd "C-/")           'ducpel-undo)
+    (define-key map (kbd "<tab>")         'ducpel-next-man)
+    (define-key map (kbd "<escape><tab>") 'ducpel-previous-man)
+    (define-key map (kbd "<backtab>")     'ducpel-previous-man)
+    (define-key map (kbd "SPC")           'ducpel-action)
+    (define-key map (kbd "b")             'ducpel-move-left)
+    (define-key map (kbd "f")             'ducpel-move-right)
+    (define-key map (kbd "p")             'ducpel-move-up)
+    (define-key map (kbd "n")             'ducpel-move-down)
+    (define-key map (kbd "<left>")        'ducpel-move-left)
+    (define-key map (kbd "<right>")       'ducpel-move-right)
+    (define-key map (kbd "<up>")          'ducpel-move-up)
+    (define-key map (kbd "<down>")        'ducpel-move-down)
+    (define-key map (kbd "rc")            'ducpel-replay-current)
+    (define-key map (kbd "rf")            'ducpel-replay-from-file)
+    (define-key map (kbd "rS")            'ducpel-replay-solution)
+    (define-key map (kbd "rs")            'ducpel-save-replay)
     map)
   "Keymap for `ducpel-mode'.")
 
@@ -1274,3 +1274,7 @@ signal an error."
 (provide 'ducpel)
 
 ;;; ducpel.el ends here
+
+;; Local Variables:
+;; checkdoc-verb-check-experimental-flag: nil
+;; End:
